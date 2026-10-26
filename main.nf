@@ -38,8 +38,12 @@ process SCRUB {
 
     script:
     // Flags derived from the submitter's choices (see workflow.yaml inputs).
-    def remove_flag = params.remove       ? '-x' : ''
-    def keep_flag   = params.keep_removed ? '-r' : ''
+    // Coerce to real booleans. A string such as "false" is truthy in Groovy,
+    // and a raw param must never be interpolated into the shell script below.
+    def remove_b    = params.remove.toString().toBoolean()
+    def keep_b      = params.keep_removed.toString().toBoolean()
+    def remove_flag = remove_b ? '-x' : ''
+    def keep_flag   = keep_b   ? '-r' : ''
     """
     set -euo pipefail
 
@@ -57,7 +61,7 @@ process SCRUB {
     # When removed reads were requested, normalise scrub.sh's removed-reads
     # output to the published name. The match is deliberately broad: the exact
     # filename has varied between scrubber releases.
-    if [ "${params.keep_removed}" = "true" ]; then
+    if [ "${keep_b}" = "true" ]; then
       for f in *.removed_spots *removed*; do
         if [ -e "\$f" ] && [ "\$f" != "\${base}.fastq.clean" ]; then
           mv "\$f" "\${base}.human_spots.fastq"; break

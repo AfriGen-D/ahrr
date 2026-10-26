@@ -57,6 +57,15 @@ selector for your cluster with `--workClaim`, `--workMountPath`, `--dbClaim`,
 `nextflow.config`, in particular the note on the task UID and the ownership of
 the database.
 
+## Notes for service operators
+
+`--db` and `--container` are ordinary Nextflow parameters, so anything that can
+pass arbitrary parameters can redirect them. A service built on this workflow
+must therefore submit only the keys it declares (`reads`, `outdir`, `remove`,
+`keep_removed`, and any resource settings it sets itself), resolve the database
+to a path server-side, and reject every other key. Do not pass user-supplied
+values through unchanged.
+
 ## Authors
 
 Aaron Berkman, Mamana Mbiyavanga, Shaun Aron and Scott Hazelhurst.
