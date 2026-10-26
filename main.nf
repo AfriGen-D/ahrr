@@ -45,6 +45,10 @@ process SCRUB {
     // and a raw param must never be interpolated into the shell script below.
     def remove_b    = params.remove.toString().toBoolean()
     def keep_b      = params.keep_removed.toString().toBoolean()
+    // The staged filename is interpolated into the shell text below, so refuse
+    // any name outside a conservative set rather than let `$(...)` or a quote run.
+    if( !(reads.name ==~ /[A-Za-z0-9._+-]+/) )
+        error "Unsafe input filename '${reads.name}': only letters, digits and . _ + - are allowed."
     def remove_flag = remove_b ? '-x' : ''
     def keep_flag   = keep_b   ? '-r' : ''
     """
