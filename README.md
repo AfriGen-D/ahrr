@@ -57,6 +57,11 @@ selector for your cluster with `--workClaim`, `--workMountPath`, `--dbClaim`,
 `nextflow.config`, in particular the note on the task UID and the ownership of
 the database.
 
+## Authors
+
+Aaron Berkman, Mamana Mbiyavanga, Shaun Aron and Scott Hazelhurst.
+See [`CITATION.cff`](CITATION.cff) for how to cite this workflow.
+
 ## Licence
 
 [MIT](LICENSE). This applies to the workflow code in this repository only.

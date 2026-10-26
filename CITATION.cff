@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this workflow, please cite it as below."
+title: "AHRR: a Nextflow workflow for human read removal"
+type: software
+authors:
+  - family-names: Berkman
+    given-names: Aaron
+  - family-names: Mbiyavanga
+    given-names: Mamana
+  - family-names: Aron
+    given-names: Shaun
+  - family-names: Hazelhurst
+    given-names: Scott
+repository-code: "https://github.com/AfriGen-D/ahrr"
+license: MIT
+abstract: >
+  A Nextflow workflow that wraps NCBI's SRA Human Scrubber for execution
+  behind a GA4GH WES endpoint. It ships no database.
