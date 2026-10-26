@@ -1,0 +1,52 @@
+# Workflow descriptor for a GA4GH WES-backed service that offers this pipeline.
+#
+# The k-mer database is not declared here and is never a user input: it is
+# supplied per node at a fixed path (see Dockerfile and nextflow.config) and
+# stays node-side. Users submit FASTQ and receive only the scrubbed output.
+id: human-scrubber
+name: SRA Human Read Scrubber
+description: >
+  Masks (or removes) human reads from FASTQ using NCBI sra-human-scrubber
+  against a node-local k-mer database that is not shared. Produces an
+  SRA-submittable cleaned FASTQ.
+version: "2.2.1"
+category: QC
+website: https://github.com/ncbi/sra-human-scrubber
+
+workflow:
+  # Nextflow parameter names. `input_param` receives the resolved input path at
+  # submission time; `output_param` is the publish directory. Both must match
+  # params in main.nf.
+  input_param: reads
+  output_param: outdir
+
+  # Progress stages surfaced in a client UI. Single stage.
+  stages:
+    - id: scrub
+      label: Scrubbing human reads
+      weight: 1.0
+      processes:
+        - SCRUB
+
+  # Default Nextflow params, merged with user params at submission.
+  defaults:
+    remove: false        # false = mask human reads with N; true = drop them (scrub.sh -x)
+    keep_removed: false  # true = also emit the removed human reads (scrub.sh -r)
+
+  # User-facing job form.
+  inputs:
+    - id: remove
+      description: "Remove human reads entirely instead of masking them with N"
+      type: boolean
+      value: false
+      required: false
+    - id: keep_removed
+      description: "Also return the identified human reads as a separate file (audit/QC)"
+      type: boolean
+      value: false
+      required: false
+
+  # How WES should invoke Nextflow. Site-specific: confirm the profile name
+  # against your own deployment, since a mismatch breaks submission silently.
+  engine_parameters:
+    profile: k8s
