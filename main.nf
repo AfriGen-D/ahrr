@@ -3,6 +3,9 @@
 /*
  * AHRR — human read removal
  *
+ * Authors: Aaron Berkman, Mamana Mbiyavanga, Shaun Aron, Scott Hazelhurst
+ * Licence: MIT
+ *
  * Wraps NCBI sra-human-scrubber (scripts/scrub.sh) as a Nextflow workflow that
  * can run behind a GA4GH WES endpoint. A caller stages the input FASTQ as a
  * DRS object; WES resolves that DRS URI to a local path on the node that runs

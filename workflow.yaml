@@ -1,4 +1,5 @@
 # Workflow descriptor for a GA4GH WES-backed service that offers this pipeline.
+# Authors: Aaron Berkman, Mamana Mbiyavanga, Shaun Aron, Scott Hazelhurst
 #
 # The k-mer database is not declared here and is never a user input: it is
 # supplied per node at a fixed path (see Dockerfile and nextflow.config) and

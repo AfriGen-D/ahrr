@@ -42,7 +42,8 @@ ENV SCRUBBER_SOURCE_COMMIT=${SCRUBBER_COMMIT}
 
 # So a running container can report what it contains, and a registry consumer
 # can read it without pulling the layers.
-LABEL org.opencontainers.image.version="${SCRUBBER_VERSION}" \
+LABEL org.opencontainers.image.authors="Aaron Berkman, Mamana Mbiyavanga, Shaun Aron, Scott Hazelhurst" \
+      org.opencontainers.image.version="${SCRUBBER_VERSION}" \
       org.opencontainers.image.revision="${SCRUBBER_COMMIT}" \
       org.opencontainers.image.source="https://github.com/ncbi/sra-human-scrubber"
 
